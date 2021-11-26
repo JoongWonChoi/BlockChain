@@ -1,5 +1,7 @@
 import java.util.Date;
+import java.util.ArrayList;
 import java.security.MessageDigest;
+import com.google.gson.GsonBuilder;
 
 class Block{
 	
@@ -43,17 +45,17 @@ class StringUtil{
 }
 
 public class NoobChain {
+	public static ArrayList<Block> blockchain = new ArrayList<Block>();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Block genesisBlock = new Block("First Block Hash","0");
-		System.out.println("Hash for block 1 : "+genesisBlock.hash);
+		blockchain.add(new Block("First block","0"));
+		blockchain.add(new Block("second block",blockchain.get(blockchain.size()-1).hash));
+		blockchain.add(new Block("third block",blockchain.get(blockchain.size()-1).hash));
 		
-		Block secondBlock = new Block("Second Block Hash",genesisBlock.hash);
-		System.out.println("Hash for block 2 : "+secondBlock.hash);
+		String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);
+		System.out.println(blockchainJson);
 		
-		Block thirdBlock = new Block("Third Block Hash",secondBlock.hash);
-		System.out.println("Hash for block 1 : "+thirdBlock.hash);
 
 	}
 
